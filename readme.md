@@ -1,12 +1,11 @@
 
 ### 생성 목적(21.11.08)
- - 알고리즘 및 자료구조(21.09.01 ~21.11.05) 2개월 학습 이후 우테코 4기 코딩테스트 7문제 7제출(6~7솔)성공후
- - 숙련도가 부족한(2019이후 미사용) SQL 연습을 위해 작성한 레포입니다.
-    - 처음부터 liwa Sql style guide에 따라 작성하여 연습하였습니다.
+ - 알고리즘 및 자료구조(21.09.01 ~ 21.11.05) 2개월 학습 이후 우테코 4기 코딩테스트 7문제 7제출(6 ~ 7솔)성공후 숙련도가 부족한(2019이후 미사용한) SQL 연습을 위해 작성한 레포입니다.
+    - 처음부터 linewalks Sql style guide에 따라 작성하여 연습하였습니다.
  - 참고블로그  : https://chaelinyeo.github.io/etc/MySQL%EC%A0%95%EB%A6%AC/
 
 ### style guide
- - https://github.com/liwa/de-common/wiki/SQL-Style-Guide
+ - https://github.com/linewalks/de-common/wiki/SQL-Style-Guide
 #### Basic
  - 들여쓰기는 4칸으로 한다.
  - SQL 구문, 내장 함수, 예약어 등은 `대문자로 작성`한다.

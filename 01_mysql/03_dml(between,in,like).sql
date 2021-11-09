@@ -45,7 +45,7 @@ WHERE
 
 
 /* q2. 한국에 있는 도시들/  미국에 있는 도시들 보기  / 한국에 있는 도시들 중 인구 100만 이상인 도시들 보기*/
-DESC city; -- TODO
+DESC city; -- TODO: 테이블 검사는 항상 하자.
 /* SELECT
     DISTINCT(CountryCode)
 FROM
