@@ -1,43 +1,15 @@
-/* join */
---DESC city;
---DESC country;
-
-SELECT 
-    *
-FROM
-    city
-    INNER JOIN
-        country
-    ON 
-        city.CountryCode = country.Code;
-
-/* q6.  city, country, countrylanguage 3개 테이블 join*/
-SELECT 
-    *
-FROM
-    city
-    INNER JOIN
-        country
-    ON 
-        city.CountryCode = country.Code
-    INNER JOIN
-        countrylanguage
-    ON
-        city.CountryCode = countrylanguage.CountryCode;
-
-
-
-
 /* 내장함수 */
 
 /*  LENGTH() : 문자열 길이 반환*/
 SELECT 
     LENGTH('asdfjklasdf');
 
+
 /*  CONCAT() : 문자열 합치기*/
 -- * 주의: 하나라도 null이면, null을 반환
 SELECT 
     CONCAT('My', 'SQL is Op', 'en Source');
+
 
 /*  LOCATE(찾문, 원문) : 처음나타나는 위치 반환*/
 -- * 주의: mysql은 index가 1부터다., 원문을 뒤에 준다.
