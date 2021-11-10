@@ -5,11 +5,11 @@
 -- 설치: oracle 가입해서 해야함.
 -- oracle이 사면서 워크벤치를 만들었다.
 
--- 만약 mysql 안켜진다면 
+-- 만약 mysql 안켜진다면: 
 -- 1) 서비스 > mysql 검색 후 시작 (시작도 비활성화상태면 -> 속성 -> 시작:자동으로 변경)
 -- 2) 윈도우터미널: net start mysql80
 
--- 확장: 
+-- vscode 확장: 
 -- 1) mysql (windows에서 vscode킬때만 연결된다!!!)
 -- -> ctrl+k,s 로 run query 단축키를 (ctrl+enter) -> alt+enter로 바꿔서, 줄바꿈(ctrl+enter)를 유지하면서 쿼리를 실행시킨다.
 -- 2) sql highlighting
