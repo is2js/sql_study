@@ -16,6 +16,7 @@
 -- 3) sql (BigQuery) -> f1:change language model -> sql(bigquery) 선택해서 sql 자동완성하게 하기
 --   -> 이걸 바꾸면.. sql 실행이 안된다.
 
-
+-- 참고사이트
+-- https://chaelinyeo.github.io/etc/MySQL%EC%A0%95%EB%A6%AC/#%EC%9E%90%EC%8B%A0%EB%A7%8C%EC%9D%98-%EC%97%B0%EB%9D%BD%EC%B2%98-%ED%85%8C%EC%9D%B4%EB%B8%94-%EB%A7%8C%EB%93%A4%EA%B8%B0%EC%9D%B4%EB%A6%84-%EC%A0%84%ED%99%94%EB%B2%88%ED%98%B8-%EC%A3%BC%EC%86%8C-%EC%9D%B4%EB%A9%94%EC%9D%BC
 
 SHOW DATABASES;

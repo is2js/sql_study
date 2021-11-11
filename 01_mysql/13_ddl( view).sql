@@ -11,4 +11,71 @@
 -- 그래도 막강한 장점들 때문에, VIEW를 사용한다. 
 
 
-/* https://www.youtube.com/watch?v=vgIc4ctNFbc */
+/* CREATE VIEW */
+-- * create table as (select)처럼 생성한다.?
+-- * 특정 칼럼만 모아서 보고싶어요 -> view
+CREATE VIEW testView AS (
+    SELECT 
+        col1, 
+        col2
+    FROM
+        test2
+);
+
+/* select from view */
+-- * 조회도 select from table처럼 한다.
+SELECT
+    *
+FROM
+    testView
+
+
+/* alter view */
+-- * view를 수정해야하면 create view 문장을 복사해서 수정한다.
+-- * 만약, col3를 빠뜨렸다-> alter view as ( select문을 수정 )
+-- * ALTER VIEW는 AS( select) 속 [select문장 자체를 변경해서, 새로만드는 개념]인 것 같다.
+ALTER VIEW testView AS (
+    SELECT 
+        col1, 
+        col2,
+        col3
+    FROM
+        test2
+);
+
+/* DROP VIEW */
+DROP VIEW testView;
+
+
+/* q7. city, country, countrylanguage 테이블을 join후 한국정보만 VIEW로 생성하기 */
+USE world;
+-- * 1. view로 만들 정보를 select 문으로 완성한다. -> create view as (select) 안에 넣기만 하면 되므로 
+SELECT
+    *
+FROM 
+    city
+    INNER JOIN country
+    ON city.CountryCode = country.Code
+    INNER JOIN countrylanguage
+    ON city.CountryCode = countrylanguage.CountryCode;
+
+SELECT
+    *
+FROM 
+    city
+    INNER JOIN country
+    ON city.CountryCode = country.Code
+    INNER JOIN countrylanguage
+    ON city.CountryCode = countrylanguage.CountryCode;
+
+
+CREATE VIEW allView AS (
+    SELECT
+        *
+    FROM 
+        city
+        INNER JOIN country
+        ON city.CountryCode = country.Code
+        INNER JOIN countrylanguage
+        ON city.CountryCode = countrylanguage.CountryCode
+);

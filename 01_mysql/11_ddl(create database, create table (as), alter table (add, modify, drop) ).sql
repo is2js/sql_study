@@ -3,13 +3,13 @@
 /* CREATE TABLE AS SELECT */
 -- * 테이블 복사!
 -- * select로 만든 테이블정보 자체를 table로 만든다.
-CREATE TABLE
-    city2 AS (
-        SELECT 
-            *
-        FROM 
-            city
-    ) -- 닫괄은 열때의 위치까지 가야한다. 
+-- create table은 한줄에 적자.
+CREATE TABLE city2 AS (
+    SELECT 
+        *
+    FROM 
+        city
+) -- 닫괄은 열때의 위치까지 가야한다. 
 
 SELECT
     *
@@ -21,21 +21,19 @@ FROM
 
 /* CREATE DATABASE */
 -- * DB를 생성함. 이 때는 USE DB;로 바꿔서 사용해야함.
-CREATE DATABASE 
-    suan;
+CREATE DATABASE suan;
 
 USE suan; -- USE world;
 
 
 /* CREATE TABLE */
 -- * 테이블 직접 생성
-CREATE TABLE 
-    test2 (
-        id INT NOT NULL PRIMARY KEY,
-        col1 INT NULL,
-        col2 FLOAT NULL,
-        col3 VARCHAR(45) NULL
-    );
+CREATE TABLE test2 (
+    id INT NOT NULL PRIMARY KEY,
+    col1 INT NULL,
+    col2 FLOAT NULL,
+    col3 VARCHAR(45) NULL
+);
 
 
 SELECT
@@ -46,6 +44,7 @@ FROM
 
 /* ALTER TABLE  (ADD|MODIFY|DROP 칼럼)*/
 -- * 테이블 만들었는데 실수해서, 수정(칼럼 추가|변경|삭제 등)하는 것!
+-- * CREATE TABLE 문장을 그대로 이용해서 create -> alter로 바꿔 활용하면 된다.
 
 -- * 여기선 ADD로 칼럼추가.
 ALTER TABLE 
