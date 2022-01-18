@@ -50,6 +50,7 @@ DROP VIEW testView;
 /* q7. city, country, countrylanguage 테이블을 join후 한국정보만 VIEW로 생성하기 */
 USE world;
 -- * 1. view로 만들 정보를 select 문으로 완성한다. -> create view as (select) 안에 넣기만 하면 되므로 
+/* 1) join 다하기 */
 SELECT
     *
 FROM 
@@ -59,23 +60,44 @@ FROM
     INNER JOIN countrylanguage
     ON city.CountryCode = countrylanguage.CountryCode;
 
+
+/* 2)  필요한 정보 추리기
+/* 2-1) (*)전체 대신 필요한 칼럼만 가져오기 */ 
+/* 2-2) where로 조건 걸기. join까지 다 끝난 것(들여쓰기로 수행됨) FROM에 걸린 테이블이다. where 은 그 다음이다. */
 SELECT
-    *
+    city.Name, 
+    country.SurfaceArea, 
+    city.Population,
+    countrylanguage.Language
 FROM 
     city
     INNER JOIN country
     ON city.CountryCode = country.Code
     INNER JOIN countrylanguage
-    ON city.CountryCode = countrylanguage.CountryCode;
+    ON city.CountryCode = countrylanguage.CountryCode
+WHERE
+    city.CountryCode = 'KOR';
 
 
+-- * 필요한 정보를 view로 만들고 -> 이후에는 편하게 select로 보기
 CREATE VIEW allView AS (
     SELECT
-        *
+        city.Name, 
+        country.SurfaceArea, 
+        city.Population,
+        countrylanguage.Language
     FROM 
         city
         INNER JOIN country
         ON city.CountryCode = country.Code
         INNER JOIN countrylanguage
         ON city.CountryCode = countrylanguage.CountryCode
+    WHERE
+        city.CountryCode = 'KOR'
 );
+
+/* 내가 필요한 정보를 select * from view로 볼 수 있다. */
+SELECT
+    *
+FROM
+    allView;
