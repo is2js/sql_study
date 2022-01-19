@@ -4,6 +4,10 @@
     - 처음부터 linewalks Sql style guide에 따라 작성하여 연습하였습니다.
  - 참고블로그  : https://chaelinyeo.github.io/etc/MySQL%EC%A0%95%EB%A6%AC/
 
+### 공부환경
+- vscode(windows10) : local db연결 편의성을 위해 wsl2 사용안함.
+- vscode extension : MySQL cweijan
+
 ### style guide
  - https://github.com/linewalks/de-common/wiki/SQL-Style-Guide
 #### Basic
