@@ -232,3 +232,150 @@ country
 order by
 surfacearea desc
 limit 10;
+
+
+-- * DISTINCT : select절에 [종류별 최대 1개씩(젤위에것)]만 보여줘서 -> 중복된 것을 제거해줌.
+-- 중복제거전)
+select
+countrycode
+from
+city;
+-- 종류별 1개로 중복제거(제일 위에거 하나만 살림)
+
+-- * COUNT(DISTINCT 칼럼) AS 'COUNT' : 종류별 1개씩만 남긴 것의 갯수 = 유니크한   [종류의 갯수]
+select
+	COUNT(DISTINCT countrycode) as 'COUNT'
+from
+	city;
+
+
+select
+	DISTINCT countrycode
+from
+	city;
+
+-- limit : order by랑 같이 써서, 상위N개만 보여준다. 
+select
+	*
+from
+	city
+order by
+	population desc 
+limit 10;
+
+-- * group by : select에 기준칼럼, 집계할 타칼럼  순으로 명시해준다.
+-- 기준칼럼, 이후 타칼럼 집계방법 / count도 기준칼럼에 대한 집계다. 
+-- (1) AVG(), MIN(), MAX(), COUNT(), COUNT(DISTINCT ), STDEV(), VARIANCE()
+-- (2) COUNT(): 기준칼럼별 [데이터(행)의 갯수]
+-- * (3) COUNT(DISTINCT ): 기준칼럼별 [종류]의 갯수  -> 중복이없다면, [데이터(행)의 갯수]
+
+-- 1) 기준칼럼만 select하면, 기준칼럼의 종류만 나온다.
+select
+	countrycode
+from
+	city
+group by 
+	countrycode;
+
+-- 2) 
+select
+	countrycode,
+	avg(population) as '인구수평균' -- alias에 띄워쓰기 쓰지말자.
+from
+	city
+group by 
+	countrycode;
+select
+	countrycode,
+	avg(population) as '인구수평균',
+	sum(population) as '인구수합계'
+from
+	city
+group by 
+	countrycode;
+select
+	countrycode,
+	avg(population) as '인구수평균',
+	sum(population) as '인구수합계',
+	count(disctinct population) as '종류개수' -- 중복이 없다면, 데이터의 갯수...
+from
+	city
+group by 
+	countrycode;
+
+
+/* q5.  도시는 몇개인가, 도시들의 평균 인구수는?*/
+desc city;
+
+select
+	-- count(name) as '도시의갯수' -- 4079
+	-- count(distinct name) as '도시종류' -- 4001 -- 중복이름이 있는 듯.
+	count(id) -- 4079
+from
+	city;
+
+select
+	avg(population) as '평균인구수'
+from
+	city;
+
+
+-- * having: group by시 쓰인 [타칼럼 집계코드]로 조건을 만들어준다. 
+-- 쿼리문 실행순서: FROM - WHERE - GROUP BY - HAVING - SELECT - ORDER BY 순서대로 실행
+select
+	countrycode,
+	max(population) -- 1) 타칼럼집계
+from
+	city
+group by 
+	countrycode;
+
+select
+	countrycode,
+	max(population) -- 1) 타칼럼집계
+from
+	city
+group by 
+	countrycode
+having
+	max(population) > 800000; -- 2) 타칼럼집계코드를 가지고 조건을 건다.
+
+
+-- * group by [기준칼럼, 2개이상] with rollup:
+-- -> 첫번째 기준칼럼에 대해, 2번째칼럼에는 null로 채워짐 + 집계칼럼부분에는 첫번째기준별 총합의 집계row가 1줄씩 추가되어 집계결과를 같이 표기한다.
+
+select
+	countrycode,
+	sum(population)
+from
+	city
+group by
+	countrycode;
+select
+	countrycode,
+	sum(population)
+from
+	city
+group by
+	countrycode with rollup;
+
+select
+	countrycode,
+	name,
+	sum(population) as '인구수_총합'
+from
+	city
+group by
+	countrycode,
+	name;
+
+-- group by 기준칼럼 2개이상부터는, 첫기준에 대해 집계(총합)row가 추가된다.
+select
+	countrycode,
+	name,
+	sum(population) as '인구수_총합'
+from
+	city
+group by
+	countrycode,
+	name with rollup;

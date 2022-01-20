@@ -29,7 +29,8 @@ LIMIT 10;
 -- * [데이터 다수로 인한 중복출력],  [[[특정칼럼의 값별로 묶어서]]]  --->  1) 기본적으로 SELECT에서 기준칼럼표시 + 2)기준칼럼별로 묶인 타칼럼 집계도 가능
 -- AVG()-평균, MIN()-최소값, MAX()-최대값, COUNT()-행의 개수, COUNT(DISTINCT)-중복 제외된 행의 개수, STDEV()표준편차, VARIANCE()-분산
 -- DISTINCT : [ 데이터 다수로 인한 중복출력]을 제거만 해서 [제일 위에것을 종류별로 1개만]  출력.
--- COUNT(): 데이터(행)의 갯수 -> COUNT(DISTINCT ): 중복제거하고 1개씩만 남긴 뒤, 행의 갯수
+-- COUNT(): 데이터(행)의 갯수 ---> COUNT(DISTINCT ): 중복제거하고 1개씩만 남긴 뒤, 행의 갯수
+
 SELECT
     CountryCode
 FROM
