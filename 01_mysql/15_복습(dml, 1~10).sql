@@ -379,3 +379,126 @@ from
 group by
 	countrycode,
 	name with rollup;
+
+
+
+-- join
+desc city;
+desc country;
+
+SELECT
+	*
+FROM
+	city
+	INNER JOIN
+		country
+	ON
+		city.CountryCode = country.Code;
+
+
+-- * 내장함수 시리즈
+select
+	length('asdfasdf');
+
+select
+	concat('My', 'SQL is Op', 'en Source');
+
+-- * LOCATE('찾문', '원문') -> 첫시작 index반환. mysql 1부터 반환 -> 0반환시 몾찾은 것 
+-- * LEFT, RIGHT('원문', n) -> 왼or오른쪽시작 n개 글자 뽑기
+select
+	locate('abc', 'asdfasdfbabcadf');
+select
+	left('asdfsadf', 3);
+
+SELECT
+	right('mysql is an open source system', 6);
+
+SELECT
+	lower('mysql is open source');
+SELECT
+	upper('mysql is open source');
+
+select 
+	trim('         asdf ');
+
+-- * trim(leading or trailing '삭문' from '원문')을 이용한 특수문자 제거
+SELECT
+	trim('   mysql   '),
+	trim(leading '#' from '###mysql###'),
+	trim(trailing '#' from '###mysql###');
+
+-- * format(숫자) -> error
+-- * format(숫자, n) : 돈처럼 3자리씩 콜론 + 소수점n번째까지 자리수로 반올림
+-- * format(숫자, 0) : 돈처럼 3자리씩 콜론
+select
+	format(12312.15, 1); --12,312.2
+
+select
+	format(12312.123, 0); --12,312
+
+select
+	floor(10.95),
+	ceil(10.95),
+	round(10.95);
+
+select
+	sqrt(4),
+	pow(2, 3),
+	exp(3),
+	log(3);
+
+select
+	sin( pi()/2 ),
+	cos( pi() ),
+	tan( pi()/4 );
+
+-- RAND() 기본: 0.0~1.0사이의 랜덤 [실수] 생성. 
+-- RAND() * 100 + ROUND(, 0): 0.0~100.0 -> 소수점제거를 위한 0번째자리(일의 자리)로 반올림
+select
+	abs(-3),
+	rand(),
+	round( rand()*100, 0);
+
+-- * 날짜 시리즈 
+
+--* NOW(): 지금날짜+시간 = CURDATE():지금날짜 + CURTIME():지금시간 
+-- DATE( now() ) : 날짜  = curdate() 
+
+select 
+	now(), --2022-01-21 16:46:34
+	date(now()); --2022-01-21
+select
+	now(), --2022-01-21 16:48:03
+	curdate(), -- 2022-01-21
+	curtime(); -- 16:48:03
+
+SELECT
+	now(),
+	year( now() ),
+	month( now() ),
+	day( now() ),
+	hour( now() ),
+	minute( now() ),
+	second( now() );
+
+-- * 월과 요일[만] 문자열로 변환[추출] monthname, dayname
+select
+	month(now()), --1
+	monthname(now()),--January
+	day(now()),--21
+	dayname(now());--Friday? -> day(now())가 아닌.. week관련..을 변환한 것으로 추정됨.
+
+select
+	dayofmonth(now()), -- day와 동일
+	dayofweek(now()),--* 6(금요일)  1일2월3화4수5목6금7토 일듯??1부터시작
+	dayofyear(now());--day 와 동일
+
+-- * date_format( now(), ' format ' )
+-- 그냥 format()은 (숫자, 소수점) 으로 3자리씩 쉼표찍는 문자열(돈)으로 변경 
+-- -> 날짜는 date_format(now(), )를 이용하면 될 듯.
+select
+	date_format(now(), '%y %m %d %D %n %j')--22 01 21 21st n 021
+
+
+
+
