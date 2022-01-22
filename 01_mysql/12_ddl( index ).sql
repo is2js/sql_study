@@ -8,7 +8,7 @@
 DESC test2;
 
 /* create index */
--- * 해당테이블 ON (해당칼럼) 까지 가서 인덱스를 생성하네...
+-- * ON 해당테이블 (해당칼럼) 까지 가서 인덱스를 생성하네...
 CREATE INDEX Col1Idx
     ON test2 (
         col1
