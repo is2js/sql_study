@@ -227,6 +227,95 @@ create view cityView as (
 
 
 select 
-*
+	*
 from
-cityView;
+	cityView;
+
+
+-- * dml : 데이터 조작, [row]를 선택삽입수정삭제 -> select, insert, update, delete + 트랜잭션
+desc test3;
+select * from test3;
+
+-- insert 
+insert into 
+	test3
+	values(1, 123, 1.1,'test');
+
+-- insert table?? : select한 것을 통째로 insert
+-- insert into table select ~ 
+-- cf) create table/view  as (select ~ )
+create table test4 (
+	id int not null PRIMARY KEY,
+	col1 int null,
+	col2 float null,
+	col3 varchar(45) null
+);
+
+insert into 
+	test4 
+	select * from test3;
+
+SELECT * FROM test4;
+
+--* select, insert into(조회/삽입)가 아닌, (수정/삭제)update/delete는
+--* selw부터 하고, 복사후 -> 수정/삭제해서 반영한다. 
+--* 수정/삭제후 다시 selw를 실행시켜 변경확인해야하므로 복사를 한다.
+
+-- update:  selw를 복사후 select * from 날리고 -> update + set col1=,col2=,col3=
+-- * update후 selw 다시 실행시켜서, 해당 row를 확인해야하므로 복사만 한다.
+
+SELECT * FROM test3 WHERE id = 1;
+-- [SELECT * FROM] test3 WHERE id = 1;
+--        [update] test3 WHERE id = 1;
+--        [update] test3 [set col1=, col2=, col3= ] WHERE id = 1;
+
+-- update test3 where id = 1;
+update 
+	test3
+SET
+	col1=1,
+	col2=3.14,
+	col3='zzz'
+where id = 1;
+SELECT * FROM test3 WHERE id = 1; -- 사실 위에 있던 거 재실행임. 
+
+
+-- delete from table
+-- * 복구가 가능하게 내부에 숨겨두고 지워서, 용량은 줄진 않는다. ROLL BACK 가능한 휴지통에 넣기
+-- * update와 마찬가지로 delete도 select where부터
+
+SELECT * FROM test3 WHERE id = 1;
+-- [SELECT * ] FROM test3 WHERE id = 1;
+--   [delete] FROM test3 WHERE id = 1;
+DELETE FROM test3 WHERE id = 1;
+SELECT * FROM test3 WHERE id = 1;
+
+
+-- * truncate table : delete와 다르게, 복구 불가능 && 안에 데이터만 삭제 
+truncate table test3;
+
+SELECT * FROM test3;
+
+-- * drop table : 껍데기까지 다 삭제
+-- delete from (복구가능), truncate table(복구불가능) : 데이터만 지움. 테이블 남아있음.
+drop table test3;
+SELECT * FROM test3;
+
+
+
+
+
+/* DROP DATABASE */
+DROP DATABASE suan;
+
+/* q8. 자신만의 연락처 테이블 만들어보기 */
+/* https://dev.mysql.com/doc/refman/8.0/en/data-types.html */
+CREATE DATABASE chojaeseong; 
+USE chojaeseong; 
+CREATE TABLE information (
+    id INT NOT NULL PRIMARY KEY, 
+    myname VARCHAR(40) NULL, 
+    phone INT NULL, 
+    address VARCHAR(50) NULL, 
+    email VARCHAR(40) NULL 
+);
