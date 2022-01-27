@@ -3,9 +3,9 @@ CREATE DATABASE practice_medi2
 
 USE practice_medi2
 
--- CodeMaster Ä®·³2°³ Á¦¿Ü DB¿ìÅ¬¸¯ > T, I > END + W + TAb ¾Æ·¡2Ä­ + ShiftTaB3Ä­ ÆÄÀÏ¼±ÅÃ  > N > N > END À§·Î3Ä­  > N N F 
--- °¡Á®¿À±â¸¶¹ý»ç·Î ½ÇÆÐÇÏ´Â °æ¿ì
--- 1. Table »ý¼º > 2. BELK INSERT ·Î csv ÆÄÀÏ Áý¾î³Ö±â
+-- CodeMaster Ä®ï¿½ï¿½2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ DBï¿½ï¿½Å¬ï¿½ï¿½ > T, I > END + W + TAb ï¿½Æ·ï¿½2Ä­ + ShiftTaB3Ä­ ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½  > N > N > END ï¿½ï¿½ï¿½ï¿½3Ä­  > N N F 
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â¸¶ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½
+-- 1. Table ï¿½ï¿½ï¿½ï¿½ > 2. BELK INSERT ï¿½ï¿½ csv ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
 
 CREATE TABLE DrugCodeMaster (
 druglocalcode varchar(20),
@@ -17,16 +17,16 @@ diaglocalcode varchar(20),
 diagname varchar(max)
 )
 
-BULK INSERT [dbo].[DrugCodeMaster] FROM 'C:\Users\is2js\Desktop\ÀÎÅÏÈ°µ¿\0111 DB¼¼¹Ì³ª\sql_loading_sample\DrugCodeMaster.csv'
+BULK INSERT [dbo].[DrugCodeMaster] FROM 'C:\Users\is2js\Desktop\ï¿½ï¿½ï¿½ï¿½È°ï¿½ï¿½\0111 DBï¿½ï¿½ï¿½Ì³ï¿½\sql_loading_sample\DrugCodeMaster.csv'
 WITH (FIRSTROW = 2, KEEPNULLS, format='CSV')
 
-BULK INSERT [dbo].[DiagnosisCodeMaster] FROM 'C:\Users\is2js\Desktop\ÀÎÅÏÈ°µ¿\0111 DB¼¼¹Ì³ª\sql_loading_sample\DiagnosisCodeMaster.csv'
+BULK INSERT [dbo].[DiagnosisCodeMaster] FROM 'C:\Users\is2js\Desktop\ï¿½ï¿½ï¿½ï¿½È°ï¿½ï¿½\0111 DBï¿½ï¿½ï¿½Ì³ï¿½\sql_loading_sample\DiagnosisCodeMaster.csv'
 WITH (FIRSTROW = 2, KEEPNULLS, format='CSV')
 
 
 
--- ½ÇÀü ºÐ¼®ÇØº¸±â --
--- alt+f1, ¿¢¼¿--
+-- ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¼ï¿½ï¿½Øºï¿½ï¿½ï¿½ --
+-- alt+f1, ï¿½ï¿½ï¿½ï¿½--
 [dbo].[person]
 [dbo].[drug]
 [dbo].[DrugCodeMaster]
@@ -35,7 +35,7 @@ WITH (FIRSTROW = 2, KEEPNULLS, format='CSV')
 [dbo].[Electrocardiogram]
 [dbo].[laboratory]
 
--- °³¼ö ÇÑ²¨¹ø¿¡ ¼¼±â
+-- ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ²ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 SELECT COUNT(1) FROM [person]				--18570
 SELECT COUNT(1) FROM [drug]					--1890626
 SELECT COUNT(1) FROM [DrugCodeMaster]		--2627
@@ -45,34 +45,34 @@ SELECT COUNT(1) FROM [Electrocardiogram]	--35932
 SELECT COUNT(1) FROM [laboratory]			--147716
 
 
----person table ºÐ¼®
+---person table ï¿½Ð¼ï¿½
 Person
---Ä®·³¸í
+--Ä®ï¿½ï¿½ï¿½ï¿½
 personid
 sex
 birthday
 ethnicity
 
--- µ¥ÀÌÅÍ ÀüÃ¼ headº¸±â
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ headï¿½ï¿½ï¿½ï¿½
 SELECT TOP 100 * FROM person
--- key Ä®·³ÀÇ distinctÇÑ °³¼ö º¸±â
+-- key Ä®ï¿½ï¿½ï¿½ï¿½ distinctï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 -- person
 SELECT COUNT(DISTINCT personid) FROM person		--18570
 
 -- sex	
 SELECT TOP 100 sex FROM person					--head
 
-SELECT DISTINCT sex FROM person					--sexÀÇ Á¾·ù : 1, 0
+SELECT DISTINCT sex FROM person					--sexï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : 1, 0
 
-SELECT COUNT(DISTINCT sex) FROM person			--sex Á¾·ù°³¼ö : 2°¡Áö - Á¾·ù°¡ ³Ê¹« ¸¹À» ¶§
+SELECT COUNT(DISTINCT sex) FROM person			--sex ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : 2ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 
 SELECT sex, COUNT(personid) cnt FROM person		--1	9307 / 0	9263
 GROUP BY sex
 
 
-SELECT 9307 + 9263								-- ÀüÃ¼(18570)°ú sexÀÇ ¹üÁÖº° ÇÕ(1+0)ÀÌ °°ÀºÁö º¸°í, sex¿¡¼­ null¾ø³ª È®ÀÎ
+SELECT 9307 + 9263								-- ï¿½ï¿½Ã¼(18570)ï¿½ï¿½ sexï¿½ï¿½ ï¿½ï¿½ï¿½Öºï¿½ ï¿½ï¿½(1+0)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, sexï¿½ï¿½ï¿½ï¿½ nullï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 
-SELECT * FROM person							-- sex¿¡ null°ª È®ÀÎ
+SELECT * FROM person							-- sexï¿½ï¿½ nullï¿½ï¿½ È®ï¿½ï¿½
 WHERE sex IS NULL
 
 SELECT sex, COUNT(personid) FROM person
@@ -82,140 +82,140 @@ ORDER BY 1
 --birthday
 SELECT TOP 100 birthday FROM person					--head
 
-SELECT birthday, COUNT(personid) cnt FROM person	--½Ã°è¿­º° groupby count(»ç¶÷¼ö)
+SELECT birthday, COUNT(personid) cnt FROM person	--ï¿½Ã°è¿­ï¿½ï¿½ groupby count(ï¿½ï¿½ï¿½ï¿½ï¿½)
 GROUP BY birthday
 
-SELECT birthday, COUNT(personid) cnt FROM person	--½Ã°è¿­º° groupby count(»ç¶÷¼ö) -> Order by ÈÄ ¿¢¼¿ ½Ã°¢È­
+SELECT birthday, COUNT(personid) cnt FROM person	--ï¿½Ã°è¿­ï¿½ï¿½ groupby count(ï¿½ï¿½ï¿½ï¿½ï¿½) -> Order by ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½È­
 GROUP BY birthday
 ORDER BY 1
 
 
 SELECT GETDATE()
 
-SELECT DATEDIFF(year, birthday, GETDATE()) FROM person		-- ÇØ³ªÀÌ : intervalÀ» year·Î
-SELECT DATEDIFF(day, birthday, GETDATE()) / 365 FROM person -- ¸¸³ªÀÌ : intervalÀ» day·Î °è»êÇÑ µÚ, 365ÀÏÀ» ³ª´²ÁÖ±â(¸ò¸¸ ³²À½)
+SELECT DATEDIFF(year, birthday, GETDATE()) FROM person		-- ï¿½Ø³ï¿½ï¿½ï¿½ : intervalï¿½ï¿½ yearï¿½ï¿½
+SELECT DATEDIFF(day, birthday, GETDATE()) / 365 FROM person -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : intervalï¿½ï¿½ dayï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, 365ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½(ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 
-SELECT  DATEDIFF(year, birthday, GETDATE()) ÇØ³ªÀÌ, DATEDIFF(day, birthday, GETDATE()) / 365 ¸¸³ªÀÌ FROM person
+SELECT  DATEDIFF(year, birthday, GETDATE()) ï¿½Ø³ï¿½ï¿½ï¿½, DATEDIFF(day, birthday, GETDATE()) / 365 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ FROM person
 
 
 SELECT
 CASE WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 0 and 9
-	THEN '10¼¼ ¹Ì¸¸'
+	THEN '10ï¿½ï¿½ ï¿½Ì¸ï¿½'
 	 WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 10 and 19
-	THEN '10´ë'
+	THEN '10ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 20 and 29
-	THEN '20´ë'
+	THEN '20ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 30 and 39
-	THEN '30´ë'
+	THEN '30ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 40 and 49
-	THEN '40´ë'
+	THEN '40ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 50 and 59
-	THEN '50´ë'
+	THEN '50ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 60 and 69
-	THEN '60´ë'
+	THEN '60ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 70 and 79
-	THEN '70´ë'
+	THEN '70ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 80 and 89
-	THEN '80´ë'
+	THEN '80ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 >= 90
-	THEN '90¼¼ ÀÌ»ó'
-END AS ¿¬·É´ë, * FROM person
+	THEN '90ï¿½ï¿½ ï¿½Ì»ï¿½'
+END AS ï¿½ï¿½ï¿½É´ï¿½, * FROM person
 
--- º¯ÇüÄ®·³À» groupby ÇÏ±â À§ÇØ, SELECT *INTO* FROMÀ¸·Î »õ Å×ÀÌºí ¸¸µé±â
+-- ï¿½ï¿½ï¿½ï¿½Ä®ï¿½ï¿½ï¿½ï¿½ groupby ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½, SELECT *INTO* FROMï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 SELECT
 CASE WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 0 and 9
-	THEN '10¼¼ ¹Ì¸¸'
+	THEN '10ï¿½ï¿½ ï¿½Ì¸ï¿½'
 	 WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 10 and 19
-	THEN '10´ë'
+	THEN '10ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 20 and 29
-	THEN '20´ë'
+	THEN '20ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 30 and 39
-	THEN '30´ë'
+	THEN '30ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 40 and 49
-	THEN '40´ë'
+	THEN '40ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 50 and 59
-	THEN '50´ë'
+	THEN '50ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 60 and 69
-	THEN '60´ë'
+	THEN '60ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 70 and 79
-	THEN '70´ë'
+	THEN '70ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 80 and 89
-	THEN '80´ë'
+	THEN '80ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 >= 90
-	THEN '90¼¼ ÀÌ»ó'
-END AS ¿¬·É´ë, * 
+	THEN '90ï¿½ï¿½ ï¿½Ì»ï¿½'
+END AS ï¿½ï¿½ï¿½É´ï¿½, * 
 INTO person_with_age
 FROM person
 
 SELECT TOP 100 * FROM person_with_age
 
--- »õ Å×ÀÌºí·Î ¿¬·É´ëº° groupby »ç¶÷¼ö Ä«¿îÆ®ÇÏ±â
-SELECT ¿¬·É´ë, COUNT(personid) cnt FROM person_with_age
-GROUP BY ¿¬·É´ë
+-- ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½É´ëº° groupby ï¿½ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½Æ®ï¿½Ï±ï¿½
+SELECT ï¿½ï¿½ï¿½É´ï¿½, COUNT(personid) cnt FROM person_with_age
+GROUP BY ï¿½ï¿½ï¿½É´ï¿½
 ORDER BY 1
 
 
---subquery·Î Å×ÀÌºí »ý¼º¾øÀÌ ÇÏ±â
-SELECT ¿¬·É´ë, COUNT(personid) cnt FROM (
+--subqueryï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï±ï¿½
+SELECT ï¿½ï¿½ï¿½É´ï¿½, COUNT(personid) cnt FROM (
 SELECT
 CASE WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 0 and 9
-	THEN '10¼¼ ¹Ì¸¸'
+	THEN '10ï¿½ï¿½ ï¿½Ì¸ï¿½'
 	 WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 10 and 19
-	THEN '10´ë'
+	THEN '10ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 20 and 29
-	THEN '20´ë'
+	THEN '20ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 30 and 39
-	THEN '30´ë'
+	THEN '30ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 40 and 49
-	THEN '40´ë'
+	THEN '40ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 50 and 59
-	THEN '50´ë'
+	THEN '50ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 60 and 69
-	THEN '60´ë'
+	THEN '60ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 70 and 79
-	THEN '70´ë'
+	THEN '70ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 80 and 89
-	THEN '80´ë'
+	THEN '80ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 >= 90
-	THEN '90¼¼ ÀÌ»ó'
-END AS ¿¬·É´ë, * FROM person
+	THEN '90ï¿½ï¿½ ï¿½Ì»ï¿½'
+END AS ï¿½ï¿½ï¿½É´ï¿½, * FROM person
 )Z
-GROUP BY ¿¬·É´ë
+GROUP BY ï¿½ï¿½ï¿½É´ï¿½
 ORDER BY 1
 
 
-SELECT ¿¬·É´ë, sex,  COUNT(personid) cnt FROM (
+SELECT ï¿½ï¿½ï¿½É´ï¿½, sex,  COUNT(personid) cnt FROM (
 SELECT
 CASE WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 0 and 9
-	THEN '10¼¼ ¹Ì¸¸'
+	THEN '10ï¿½ï¿½ ï¿½Ì¸ï¿½'
 	 WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 10 and 19
-	THEN '10´ë'
+	THEN '10ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 20 and 29
-	THEN '20´ë'
+	THEN '20ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 30 and 39
-	THEN '30´ë'
+	THEN '30ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 40 and 49
-	THEN '40´ë'
+	THEN '40ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 50 and 59
-	THEN '50´ë'
+	THEN '50ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 60 and 69
-	THEN '60´ë'
+	THEN '60ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 70 and 79
-	THEN '70´ë'
+	THEN '70ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 BETWEEN 80 and 89
-	THEN '80´ë'
+	THEN '80ï¿½ï¿½'
 	WHEN  DATEDIFF(day, birthday, GETDATE()) / 365 >= 90
-	THEN '90¼¼ ÀÌ»ó'
-END AS ¿¬·É´ë, * FROM person
+	THEN '90ï¿½ï¿½ ï¿½Ì»ï¿½'
+END AS ï¿½ï¿½ï¿½É´ï¿½, * FROM person
 )Z
-GROUP BY ¿¬·É´ë, sex
+GROUP BY ï¿½ï¿½ï¿½É´ï¿½, sex
 ORDER BY 1, 2
 
--- ¿¢¼¿¿¡¼­ ¿¬·É´ëº° ¼ºº°º° ½Ã°¢È­ÇØº¸±â : shift+ÇÚµé¹Ù·Î ¹Ð¾î¿Ã¸®±â È°¿ë / È¨>½ºÅ¸ÀÏ> Á¶°ÇºÎ¼­½Ä > µ¥ÀÌÅÍ ¸·´ë
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½É´ëº° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½È­ï¿½Øºï¿½ï¿½ï¿½ : shift+ï¿½Úµï¿½Ù·ï¿½ ï¿½Ð¾ï¿½Ã¸ï¿½ï¿½ï¿½ È°ï¿½ï¿½ / È¨>ï¿½ï¿½Å¸ï¿½ï¿½> ï¿½ï¿½ï¿½ÇºÎ¼ï¿½ï¿½ï¿½ > ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 
 
---ethnicity Ä®·³
+--ethnicity Ä®ï¿½ï¿½
 SELECT TOP 100 ethnicity FROM person
 
 SELECT DISTINCT ethnicity FROM person
@@ -231,7 +231,7 @@ ORDER BY 1
 
 
 
---drug Å×ÀÌºí--
+--drug ï¿½ï¿½ï¿½Ìºï¿½--
 drug
 personid
 drugdate
@@ -245,20 +245,20 @@ SELECT COUNT(1) FROM drug								--1890626
 
 SELECT TOP 10 * FROM drug
 
---keyÄ®·³ÀÎ personid
+--keyÄ®ï¿½ï¿½ï¿½ï¿½ personid
 SELECT COUNT(DISTINCT personid) FROM person				--18570
-SELECT COUNT(DISTINCT personid) FROM drug				--15430  ¾à ¾È¹ÞÀº È¯ÀÚ 3100¸í
+SELECT COUNT(DISTINCT personid) FROM drug				--15430  ï¿½ï¿½ ï¿½È¹ï¿½ï¿½ï¿½ È¯ï¿½ï¿½ 3100ï¿½ï¿½
 
 SELECT cast(15430 as float)/ cast(18570 as float)		--0.830910070005385 = 83%
 SELECT 15430 * 1.0 / 18570
 
 
---¹üÁÖÇü drugdept
+--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ drugdept
 SELECT TOP 100 drugdept FROM drug
 
 SELECT DISTINCT drugdept FROM drug						-- I E H O
 
-SELECT COUNT(DISTINCT drugdept) FROM drug				-- ¹üÁÖ 4°¡Áö
+SELECT COUNT(DISTINCT drugdept) FROM drug				-- ï¿½ï¿½ï¿½ï¿½ 4ï¿½ï¿½ï¿½ï¿½
 
 SELECT drugdept, COUNT(personid) cnt FROM drug
 GROUP BY drugdept
@@ -276,17 +276,17 @@ ORDER BY 1
 --I	8747
 --O	11294
 
-SELECT 82257+1770+1431086+375513						--1890626  == drugÀüÃ¼µ¥ÀÌÅÍ 1890626 => null°ª ¾øÀ½
+SELECT 82257+1770+1431086+375513						--1890626  == drugï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1890626 => nullï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 SELECT * FROM drug WHERE drugdept IS NULL
 
 
 
 
--- ¹üÁÖÇü routeÄ®·³
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ routeÄ®ï¿½ï¿½
 SELECT TOP 100 route FROM drug
 
 SELECT DISTINCT route FROM drug							--E P 
-SELECT COUNT(DISTINCT route) FROM drug					--2Á¾·ù
+SELECT COUNT(DISTINCT route) FROM drug					--2ï¿½ï¿½ï¿½ï¿½
 
 SELECT route, COUNT(personid) cnt FROM drug
 GROUP BY route
@@ -301,18 +301,18 @@ SELECT * FROM drug WHERE route IS NULL
 
 
 
--- ¹üÁÖÇü °°¾Æº¸ÀÌÁö¸¸ ¿¬¼ÓÇü duration
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ duration
 SELECT TOP 100 duration FROM drug
 
 
 SELECT DISTINCT duration FROM drug	
-SELECT DISTINCT CONVERT(smallint, duration) "duration(int)" FROM drug		--ÀÀ¿ë					-- 
+SELECT DISTINCT CONVERT(smallint, duration) "duration(int)" FROM drug		--ï¿½ï¿½ï¿½ï¿½					-- 
 ORDER BY 1
 
-SELECT COUNT(DISTINCT duration) FROM drug					--126Á¾·ù
+SELECT COUNT(DISTINCT duration) FROM drug					--126ï¿½ï¿½ï¿½ï¿½
 
 
-ALTER TABLE drug ALTER COLUMN duration int					--Ä®·³ Å¸ÀÔ º¯°æ
+ALTER TABLE drug ALTER COLUMN duration int					--Ä®ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 SELECT MIN(duration) min, MAX(duration) max, AVG(duration) avg FROM drug -- 0	390	7
 
@@ -320,16 +320,16 @@ SELECT MIN(duration) min, MAX(duration) max, AVG(duration) avg FROM drug -- 0	39
 
 
 
---³¯Â¥(»ý³â¿ùÀÏx) Ä®·³ drugdate
+--ï¿½ï¿½Â¥(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½x) Ä®ï¿½ï¿½ drugdate
 SELECT TOP 100 drugdate FROM drug
 
-ALTER TABLE drug ALTER COLUMN drugdate DATETIME					--Ä®·³ Å¸ÀÔ º¯°æ
+ALTER TABLE drug ALTER COLUMN drugdate DATETIME					--Ä®ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 SELECT MIN(drugdate) min, MAX(drugdate) max FROM drug		--1994-06-24 00:00:00	2011-08-23 00:00:00
 
 SELECT TOP 100 CONVERT(char(20), drugdate, 112) as YYYYmmdd, * FROM drug -- CONVERT 112 : YYYYmmdd
 
-SELECT TOP 100 SUBSTRING(CONVERT(char(20), drugdate, 112), 1, 4) as year FROM drug -- ÇÊ¿ä½Ã SUBSTRING( CONVERT, ½ÃÀÛ,ÀÌÈÄ°¹¼ö) ->: YYYY
+SELECT TOP 100 SUBSTRING(CONVERT(char(20), drugdate, 112), 1, 4) as year FROM drug -- ï¿½Ê¿ï¿½ï¿½ SUBSTRING( CONVERT, ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½Ä°ï¿½ï¿½ï¿½) ->: YYYY
 
 SELECT YYYYmmdd
 FROM (
@@ -353,13 +353,13 @@ ORDER BY 1
 
 
 
---¿¬¼ÓÇüÃ³·³º¸ÀÌ´Â ¹üÁÖÇü codeÄ®·³ : druglocalcode
+--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ codeÄ®ï¿½ï¿½ : druglocalcode
 
-SELECT DISTINCT druglocalcode FROM drug					-- Á¾·ù ³Ê¹« ¸¹À½
+SELECT DISTINCT druglocalcode FROM drug					-- ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¹ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 SELECT COUNT(DISTINCT druglocalcode) FROM drug			--2276
 
-SELECT druglocalcode, COUNT(personid) cnt			-- ¹üÁÖÀÇ Á¾·ù°¡ ¸¹À¸¸é, Ä«¿îÆ® Ä®·³À¸·Î ¸Ó¸¦ ¸¹ÀÌ ½è´ÂÁö DESC ORDER BY
+SELECT druglocalcode, COUNT(personid) cnt			-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, Ä«ï¿½ï¿½Æ® Ä®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ DESC ORDER BY
 FROM drug
 GROUP BY druglocalcode
 ORDER BY 2 DESC
@@ -396,7 +396,7 @@ GROUP BY drugigrname, a.druglocalcode
 ORDER BY 3 DESC
 
 
---¿¬µµº° Ã³¹æºóµµ
+--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½
 SELECT SUBSTRING( CONVERT(varchar(8), drugdate,112), 1, 4) year, * FROM drug
 
 SELECT year, COUNT(personid) cnt
@@ -406,7 +406,7 @@ SELECT SUBSTRING( CONVERT(varchar(8), drugdate,112), 1, 4) year, * FROM drug
 GROUP BY year
 ORDER BY year DESC
 
---¿ùº°º° Ã³¹æºóµµ
+--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½
 SELECT months, COUNT(personid) cnt
 FROM(
 SELECT SUBSTRING( CONVERT(varchar(8), drugdate,112), 5, 2) months, * FROM drug
@@ -416,7 +416,7 @@ ORDER BY months ASC
 
 
 
--- ¹üÁÖÇüÄ®·³ route
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä®ï¿½ï¿½ route
 SELECT TOP 100 route FROM drug
 
 SELECT DISTINCT route FROM drug
@@ -428,13 +428,13 @@ GROUP BY route
 --E	14321
 --P	12077
 
-SELECT COUNT(DISTINCT personid) FROM drug			-- 15430 »ç¶÷¼öº¸´Ù E + PÀÌ Å©´Ù = ±³ÁýÇÕÀÌ ÀÖ´Ù.
+SELECT COUNT(DISTINCT personid) FROM drug			-- 15430 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ E + Pï¿½ï¿½ Å©ï¿½ï¿½ = ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½.
 
 SELECT * FROM drug WHERE route IS NULL
 
 
 
---ÀÇ¹Ì³»Æ÷ ¹üÁÖÇü codeÄ®·³ : atccode
+--ï¿½Ç¹Ì³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ codeÄ®ï¿½ï¿½ : atccode
 SELECT TOP 100 atccode FROM drug
 
 SELECT COUNT(DISTINCT atccode) FROM drug			--984
@@ -442,7 +442,7 @@ SELECT COUNT(DISTINCT atccode) FROM drug			--984
 SELECT LEFT(atccode, 1) FROM drug
 SELECT LEFT(atccode, 1), * FROM drug
 
-SELECT												-- ³»Æ÷ÄÚµåº° ºóµµÈ®ÀÎ
+SELECT												-- ï¿½ï¿½ï¿½ï¿½ï¿½Úµåº° ï¿½ï¿½È®ï¿½ï¿½
 atc_1, COUNT(personid) cnt
 FROM(
 SELECT LEFT(atccode, 1) atc_1, * FROM drug
@@ -451,7 +451,7 @@ GROUP BY atc_1
 ORDER BY 2 DESC
 
 
--- ¿¬µµº° ³»Æ÷ÄÚµåº° ºóµµÈ®ÀÎ
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Úµåº° ï¿½ï¿½È®ï¿½ï¿½
 SELECT SUBSTRING(CONVERT(varchar(8), drugdate, 112), 1, 4) FROM drug
 
 SELECT												
