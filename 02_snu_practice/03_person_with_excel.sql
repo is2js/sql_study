@@ -4,7 +4,7 @@
 -- 위 블로그처럼, 엑셀로 테이블들을 나타내보자.
 --  엑셀 alt+2(병합), 3(모든테두리), 4(굵-바깥테두리) 5(셀채우기) 등 단축키를 잘 활용한다.
 
--- * 1) 테이블  칼럼|type 들을 다 복붙해서 나타내기
+-- * 1) [EXCEL 시각화1] 테이블  칼럼|type 들을 다 복붙해서 나타내기
 
 --  -> vscode mysql [ext desc table;]보다는
 --  -> workbench 툴에서 클릭만 하면 바로 excel 복붙가능한 정도로 나온다.
@@ -14,6 +14,7 @@ personid int
 sex int 
 birthday datetime 
 ethnicity int */
+
 
 
 -- * 2) 각 테이블별 count(1)를 한 뒤, 코드 및 엑셀에 붙혀넣기
@@ -104,7 +105,7 @@ HAVING
 	성별별_환자수 > 1; -- 집계외 타칼럼의 alias도 적용가능하다.
 
 
--- * [EXCEL 시각화] 다양한 범주를 가진 것을 -> [범주(날짜)별 갯수]를 엑셀로 데이터 그리기
+-- * [EXCEL 시각화2] 다양한 범주를 가진 것을 -> [범주(날짜)별 갯수]를 엑셀로 데이터 그리기
 -- 1)  vscode ext -> export -> csv 복붙해서 excel에 붙혀넣는다.
 select
 	birthday,
@@ -121,3 +122,137 @@ order by
 
 -- 3) 데이터 모두(칼럼까지) 선택 -> 삽입 -> 피벗차트 -> 
 --    count -> [값]으로 이동 + [합계->갯수]로 변경 / birthday -> [축]으로 이동
+
+
+
+-- * [생년월일 -> age 변환] by to_days()로 일수차이 + round() 를 이용한다.
+select now(); -- 과거: select getdate(); 
+
+select
+	round((to_days(now()) - to_days(birthday)) / 365) as '만나이'
+from
+	person;
+
+/* 
+SELECT
+    CASE 
+        WHEN a = 1 THEN 1
+        WHEN a = 2 THEN 2
+        ELSE 123
+    END AS some_col
+FROM
+    some_table */
+-- *  case문으로 [만나이]변경한 것을 -> [연령대]로 매핑하기
+-- case + when [between등 범위조건1] then [매핑값1] ... + else [매핑값] + end
+/* 
+select
+	case
+		when 범위조건 -> then 매핑값
+	end as '연령대'
+from
+	table;
+ */
+
+select
+	case
+		when round((to_days(now()) - to_days(birthday)) / 365) between 0 and 9 then '10세 미만'
+		when round((to_days(now()) - to_days(birthday)) / 365) between 10 and 19 then '10대'
+		when round((to_days(now()) - to_days(birthday)) / 365) between 20 and 29 then '20대'
+		when round((to_days(now()) - to_days(birthday)) / 365) between 30 and 39 then '30대'
+		when round((to_days(now()) - to_days(birthday)) / 365) between 40 and 49 then '40대'
+		when round((to_days(now()) - to_days(birthday)) / 365) between 50 and 59 then '50대'
+		when round((to_days(now()) - to_days(birthday)) / 365) between 60 and 69 then '60대'
+		when round((to_days(now()) - to_days(birthday)) / 365) between 70 and 79 then '70대'
+		when round((to_days(now()) - to_days(birthday)) / 365) between 80 and 89 then '80대'
+		when round((to_days(now()) - to_days(birthday)) / 365) between 90 and 99 then '90대'
+		else '100세 이상' 
+	end as '연령대'
+from
+	person;
+
+-- * [case 매핑칼럼] <<<앞>>>>에 *, 기존칼럼을 모두 가진 상태를 subquery로서, from () Z로 활용 -> 매핑칼럼으로 group by 집계하기
+--> from 앞에 [into person_2]를 넣어서 새 테이블 생성시, 시간대기 걸려 vscode꺼짐.
+
+use pmd; 
+
+select
+	*
+from 
+	(select
+		*, -- case문 뒤에 , * 로 놓았더니 에러남
+		case
+			when round((to_days(now()) - to_days(birthday)) / 365) between 0 and 9 then '10세 미만'
+			when round((to_days(now()) - to_days(birthday)) / 365) between 10 and 19 then '10대'
+			when round((to_days(now()) - to_days(birthday)) / 365) between 20 and 29 then '20대'
+			when round((to_days(now()) - to_days(birthday)) / 365) between 30 and 39 then '30대'
+			when round((to_days(now()) - to_days(birthday)) / 365) between 40 and 49 then '40대'
+			when round((to_days(now()) - to_days(birthday)) / 365) between 50 and 59 then '50대'
+			when round((to_days(now()) - to_days(birthday)) / 365) between 60 and 69 then '60대'
+			when round((to_days(now()) - to_days(birthday)) / 365) between 70 and 79 then '70대'
+			when round((to_days(now()) - to_days(birthday)) / 365) between 80 and 89 then '80대'
+			when round((to_days(now()) - to_days(birthday)) / 365) between 90 and 99 then '90대'
+			when round((to_days(now()) - to_days(birthday)) / 365) >= 100 then '100세 이상'
+		end as '연령대'
+	FROM
+		person) Z;
+
+
+select
+	연령대, count(personid) as '환자_수'
+from 
+	(select
+		*, -- case문 뒤에 , * 로 놓았더니 에러남
+		case
+			when round((to_days(now()) - to_days(birthday)) / 365) between 0 and 9 then '10세 미만'
+			when round((to_days(now()) - to_days(birthday)) / 365) between 10 and 19 then '10대'
+			when round((to_days(now()) - to_days(birthday)) / 365) between 20 and 29 then '20대'
+			when round((to_days(now()) - to_days(birthday)) / 365) between 30 and 39 then '30대'
+			when round((to_days(now()) - to_days(birthday)) / 365) between 40 and 49 then '40대'
+			when round((to_days(now()) - to_days(birthday)) / 365) between 50 and 59 then '50대'
+			when round((to_days(now()) - to_days(birthday)) / 365) between 60 and 69 then '60대'
+			when round((to_days(now()) - to_days(birthday)) / 365) between 70 and 79 then '70대'
+			when round((to_days(now()) - to_days(birthday)) / 365) between 80 and 89 then '80대'
+			when round((to_days(now()) - to_days(birthday)) / 365) between 90 and 99 then '90대'
+			when round((to_days(now()) - to_days(birthday)) / 365) >= 100 then '100세 이상'
+		end as '연령대'
+	FROM
+		person) Z
+
+group by
+	연령대
+order by
+	연령대 asc; 
+
+-- * [case문 매핑칼럼] -> [합쳐서 subquery에 얹고 집계] -> [추가 집계]
+select
+	연령대, sex, count(personid) as '환자_수'
+from 
+	(select
+		*, -- case문 뒤에 , * 로 놓았더니 에러남
+		case
+			when round((to_days(now()) - to_days(birthday)) / 365) between 0 and 9 then '10세 미만'
+			when round((to_days(now()) - to_days(birthday)) / 365) between 10 and 19 then '10대'
+			when round((to_days(now()) - to_days(birthday)) / 365) between 20 and 29 then '20대'
+			when round((to_days(now()) - to_days(birthday)) / 365) between 30 and 39 then '30대'
+			when round((to_days(now()) - to_days(birthday)) / 365) between 40 and 49 then '40대'
+			when round((to_days(now()) - to_days(birthday)) / 365) between 50 and 59 then '50대'
+			when round((to_days(now()) - to_days(birthday)) / 365) between 60 and 69 then '60대'
+			when round((to_days(now()) - to_days(birthday)) / 365) between 70 and 79 then '70대'
+			when round((to_days(now()) - to_days(birthday)) / 365) between 80 and 89 then '80대'
+			when round((to_days(now()) - to_days(birthday)) / 365) between 90 and 99 then '90대'
+			when round((to_days(now()) - to_days(birthday)) / 365) >= 100 then '100세 이상'
+		end as '연령대'
+	FROM
+		person) Z
+group by
+	연령대, sex
+order by
+	연령대 asc,
+	sex asc;
+
+-- convert(  ,type) or cast(  as type)
+SELECT
+	CONVERT(birthday, char(10))
+from
+	person;
+
