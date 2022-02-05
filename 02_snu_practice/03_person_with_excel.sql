@@ -223,7 +223,7 @@ group by
 order by
 	연령대 asc; 
 
--- * [case문 매핑칼럼] -> [합쳐서 subquery에 얹고 집계] -> [추가 집계]
+-- * [case문 매핑칼럼] -> [기존칼럼과 합쳐서 from (subquery) Z 후 집계] -> [추가 집계]
 select
 	연령대, sex, count(personid) as '환자_수'
 from 
@@ -256,3 +256,20 @@ SELECT
 from
 	person;
 
+
+-- * 범주의 종류 갯수: COUNT(DISTINCT-종류별1개씩   )의 갯수 
+-- * 범주의 종류: 갯수가 적을 땐 [범주별 갯수로 파악] == [  group by 범주 -> select 범주, count(id칼럼)  ]로 바로 보기 
+-- * count시 id칼럼을 넣어주면, 따로 count( distinct 를 안넣어줘도된다.) 
+-- * 보통은 모든 데이터 or 유니크한 특정칼럼의 갯수를 원할테니 count() 한번, count( id칼럼 ) 한번 or count(DISTINCT 칼럼)
+select
+	count(distinct ethnicity)
+from
+	person; -- 범주의 종류 갯수: 2개 
+
+select 
+	ethnicity, 
+	count(personid), -- 범주별 id데이터의 갯수로 -> 범주의 종류도 한눈에 본다.
+from
+	person
+group by
+	ethnicity;
